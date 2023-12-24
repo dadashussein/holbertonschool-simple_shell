@@ -1,18 +1,12 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <sys/wait.h>
-
-#define BUFFER_SIZE 256
-
+#include "shell.h"
 /**
- * main - simple shell
+ * main - Entry point
  *
- * Return: Always 0.
+ * Return: Always 0
  */
 int main(void)
 {
+
 	char buffer[BUFFER_SIZE];
 	pid_t pid;
 
@@ -23,10 +17,9 @@ int main(void)
 			break;
 		buffer[strcspn(buffer, "\n")] = '\0';
 
-		if (strcmp(buffer, "exit") == 0)
-			break;
 		if (strlen(buffer) == 0)
 			continue;
+
 		pid = fork();
 
 		if (pid == -1)
@@ -34,18 +27,24 @@ int main(void)
 			perror("Error:");
 			return (1);
 		}
-		/*child process*/
 		if (pid == 0)
 		{
-			if (execl(buffer, buffer, NULL) == -1)
+			char **args = malloc(BUFFER_SIZE);
+
+			args[0] = buffer;
+			args[1] = NULL;
+
+			if (execve(args[0], args, environ) == -1)
 			{
-				perror("Error:");
-				return (1);
+				perror("execve");
+				exit(1);
 			}
+
+			free(args);
 		}
-		/*parent process*/
 		else
 			waitpid(pid, NULL, 0);
 	}
 	return (0);
 }
+
