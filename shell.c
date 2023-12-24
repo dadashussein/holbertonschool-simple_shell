@@ -6,7 +6,12 @@
 
 #define BUFFER_SIZE 256
 
-int main()
+/**
+ * main - simple shell
+ *
+ * Return: Always 0.
+ */
+int main(void)
 {
 	char buffer[BUFFER_SIZE];
 	pid_t pid;
@@ -44,4 +49,3 @@ int main()
 	}
 	return (0);
 }
-
