@@ -9,7 +9,8 @@
 #include <sys/wait.h>
 
 extern char **environ;
-#define BUFFER_SIZE 1024
+void simple_shell(char *command);
+char *read_command(void);
 
 #endif
 

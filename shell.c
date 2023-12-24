@@ -1,50 +1,33 @@
 #include "shell.h"
 /**
- * main - Entry point
+ * simple_shell - Simple shell
+ * @command: Command to execute
  *
- * Return: Always 0
+ * Return: Nothing
  */
-int main(void)
+void simple_shell(char *command)
 {
-
-	char buffer[BUFFER_SIZE];
 	pid_t pid;
+	int status;
 
-	while (1)
+	pid = fork();
+
+	if (pid == -1)
+		exit(EXIT_FAILURE);
+
+	else if (pid == 0)
 	{
-		printf("#cisfun$ ");
-		if (!fgets(buffer, BUFFER_SIZE, stdin))
-			break;
-		buffer[strcspn(buffer, "\n")] = '\0';
+		char *args[2];
 
-		if (strlen(buffer) == 0)
-			continue;
+		if (command == NULL)
+			command = "/bin/ls";
 
-		pid = fork();
+		args[0] = command;
+		args[1] = NULL;
 
-		if (pid == -1)
-		{
-			perror("Error:");
-			return (1);
-		}
-		if (pid == 0)
-		{
-			char **args = malloc(BUFFER_SIZE);
-
-			args[0] = buffer;
-			args[1] = NULL;
-
-			if (execve(args[0], args, environ) == -1)
-			{
-				perror("execve");
-				exit(1);
-			}
-
-			free(args);
-		}
-		else
-			waitpid(pid, NULL, 0);
+		execve(command, args, environ);
+		exit(EXIT_FAILURE);
 	}
-	return (0);
+	else
+		waitpid(pid, &status, 0);
 }
-
