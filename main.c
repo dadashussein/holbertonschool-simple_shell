@@ -1,35 +1,35 @@
 #include "shell.h"
 /**
- * main - Simple shell
+ * main - Base functionality of shell.
  *
- * Return: Always 0
+ * Return: Always 0.
  */
 int main(void)
 {
-	char *command;
-	char *non_space_ptr;
+	int i;
+	char *line;
+	char **args;
 
 	while (1)
 	{
-		command = read_command();
-
-		if (command == NULL)
+		line = read_command();
+		if (!line)
 			break;
 
-		non_space_ptr = command;
-		while (*non_space_ptr == ' ')
+		args = parse_command(line);
+		free(line);
+		if (!args[0])
 		{
-			non_space_ptr++;
+			free(args);
+			continue;
 		}
+		execute_command(args);
 
-		if (*non_space_ptr != '\0')
-		{
-			simple_shell(non_space_ptr);
-		}
-
-		free(command);
+		for (i = 0; args[i] != NULL; i++)
+			free(args[i]);
+		free(args);
 	}
 
+	free(line);
 	return (0);
 }
-

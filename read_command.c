@@ -1,23 +1,19 @@
 #include "shell.h"
 /**
- * read_command - Read command from stdin
+ * read_command - Read a command line from standard input.
  *
- * Return: Pointer to command
+ * Return: A pointer to a string containing the command line.
  */
 char *read_command(void)
 {
-	char *command = NULL;
-	size_t len = 0;
-	ssize_t read;
+	char *line = NULL;
+	size_t line_size = 0;
 
-	read = getline(&command, &len, stdin);
-	if (read == -1)
-		exit(EXIT_FAILURE);
+	if (getline(&line, &line_size, stdin) == -1)
+	{
+		free(line);
+		return (NULL);
+	}
 
-	command[strcspn(command, "\n")] = '\0';
-
-
-
-	return (command);
+	return (line);
 }
-
