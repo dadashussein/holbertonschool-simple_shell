@@ -1,10 +1,10 @@
 #include "shell.h"
 /**
- * execute_command - Execute a command in a new process.
+ * execute_command - Execute a command.
  *
- * @args: Arguments as a null-terminated array.
+ * @args: A pointer to a null-terminated array of strings.
  *
- * Return: No return value.
+ * Return: Nothing.
  */
 void execute_command(char **args)
 {
@@ -14,9 +14,7 @@ void execute_command(char **args)
 	child_pid = fork();
 
 	if (child_pid == -1)
-	{
 		perror("fork");
-	}
 	else if (child_pid == 0)
 	{
 		if (execve(args[0], args, NULL) == -1)
@@ -26,7 +24,5 @@ void execute_command(char **args)
 		}
 	}
 	else
-	{
 		wait(&status);
-	}
 }
