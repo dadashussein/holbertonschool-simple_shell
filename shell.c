@@ -7,14 +7,16 @@
  */
 void simple_shell(char *command)
 {
-	pid_t pid;
+	pid_t pid, wpid;
 	int status;
 
 	pid = fork();
 
 	if (pid == -1)
+	{
+		perror("Fork error");
 		exit(EXIT_FAILURE);
-
+	}
 	else if (pid == 0)
 	{
 		char *args[2];
@@ -26,8 +28,18 @@ void simple_shell(char *command)
 		args[1] = NULL;
 
 		execve(command, args, environ);
+		perror("");
 		exit(EXIT_FAILURE);
 	}
 	else
-		waitpid(pid, &status, 0);
+	{
+		wpid = waitpid(pid, &status, 0);
+
+		if (wpid == -1)
+		{
+			perror("Wait error");
+			exit(EXIT_FAILURE);
+		}
+	}
 }
+

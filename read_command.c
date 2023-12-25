@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "shell.h"
 /**
  * read_command - Read command from stdin
@@ -17,6 +15,8 @@ char *read_command(void)
 		exit(EXIT_FAILURE);
 
 	command[strcspn(command, "\n")] = '\0';
+
+
 
 	return (command);
 }
