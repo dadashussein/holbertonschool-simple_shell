@@ -1,5 +1,5 @@
-#ifndef _SHELL_H_
-#define _SHELL_H_
+#ifndef SHELL_H
+#define SHELL_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,9 +8,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-extern char **environ;
-void simple_shell(char *command);
 char *read_command(void);
+char **parse_command(char *line);
+void execute_command(char **args);
 
 #endif
-
