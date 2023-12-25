@@ -40,6 +40,6 @@ void simple_shell(char *command)
 			perror("Wait error");
 			exit(EXIT_FAILURE);
 		}
+		exit(WEXITSTATUS(status));
 	}
 }
-
