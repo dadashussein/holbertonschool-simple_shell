@@ -22,23 +22,6 @@ void execute_command_path(char **args, char *path)
 }
 
 /**
- * print_environment - Print the current environment variables.
- *
- * Return: Nothing.
- */
-void print_environment(void)
-{
-    extern char **environ;
-    int i = 0;
-
-    while (environ[i] != NULL)
-    {
-        printf("%s\n", environ[i]);
-        i++;
-    }
-}
-
-/**
  * execute_command - Execute a command.
  *
  * @args: A pointer to a null-terminated array of strings.
@@ -56,12 +39,6 @@ void execute_command(char **args)
     {
         /* Exit the shell if "exit" is entered */
         exit(EXIT_SUCCESS);
-    }
-    else if (strcmp(args[0], "env") == 0)
-    {
-        /* Print the environment if "env" is entered */
-        print_environment();
-        return;
     }
 
     child_pid = fork();
