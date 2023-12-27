@@ -8,29 +8,29 @@
  */
 char **parse_command(char *line)
 {
-	int token_count = 0;
+	int numWords = 0;
 	char *token;
-	char **tokens = malloc(strlen(line) * sizeof(char *));
+	char **wordsArray = malloc(strlen(line) * sizeof(char *));
 
-	if (!tokens)
+	if (!wordsArray)
 		return (NULL);
 
 	token = strtok(line, " \n\t");
 
 	while (token)
 	{
-		tokens[token_count] = strdup(token);
-		if (!tokens[token_count])
+		wordsArray[numWords] = strdup(token);
+		if (!wordsArray[numWords])
 		{
-			free(tokens[token_count]);
+			free(wordsArray[numWords]);
 			fprintf(stderr, "Error happens.");
 			exit(EXIT_FAILURE);
 		}
-		token_count++;
+		numWords++;
 		token = strtok(NULL, " \n\t");
 	}
 
-	tokens[token_count] = NULL;
+	wordsArray[numWords] = NULL;
 
-	return (tokens);
+	return (wordsArray);
 }
