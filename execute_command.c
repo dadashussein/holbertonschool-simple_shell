@@ -13,7 +13,7 @@ void execute_command(char **args)
 
 	path = getenv("PATH");
 
-	if (path == NULL)
+	if (args[0] == NULL)
 	{
 		fprintf(stderr, "./hsh: %s: not found\n", args[0]);
 		free(args);
