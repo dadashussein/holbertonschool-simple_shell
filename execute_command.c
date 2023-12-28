@@ -11,18 +11,18 @@ void execute_command(char **args)
 	pid_t child_pid;
 	int status;
 
-	char *name = args[0];
-
 	path = getenv("PATH");
 
-	if (name == NULL)
+	if (path == NULL)
 	{
-		fprintf(stderr, "./hsh: %d: %s: not found\n", status, args[0]);
-		return;
+		fprintf(stderr, "./hsh: %s: not found\n", args[0]);
+		free(args);
+		exit(127);
 	}
 
-	if (strcmp(name, "echo") == 0 && args[1] != NULL
-		&& strcmp(args[1], "$PATH") == 0)	{
+	if (strcmp(args[0], "echo") == 0 && args[1] != NULL
+	 && strcmp(args[1], "$PATH") == 0)
+	{
 		printf("%s\n", path);
 		return;
 	}
@@ -36,7 +36,7 @@ void execute_command(char **args)
 
 		if (execvp(args[0], args) == -1)
 		{
-			fprintf(stderr, "./hsh: %d: %s: not found\n", status, args[0]);
+			fprintf(stderr, "./hsh: %s: not found\n", args[0]);
 			exit(EXIT_FAILURE);
 		}
 
