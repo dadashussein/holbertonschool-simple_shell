@@ -14,5 +14,6 @@
 char *read_command(void);
 char **parse_command(char *line);
 int execute_command(char **args);
+char *find_command_in_path(char *path, char *command);
 
 #endif
