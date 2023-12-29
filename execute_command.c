@@ -1,5 +1,4 @@
 #include "shell.h"
-
 /**
  * execute_command - Execute a command.
  * @args: A pointer to a null-terminated array of strings.
@@ -12,6 +11,7 @@ void execute_command(char **args)
 	pid_t child_pid;
 	int status;
 
+	clearenv();
 	path = getenv("PATH");
 	if (args[0] == NULL)
 	{
@@ -42,7 +42,7 @@ void execute_command(char **args)
 		if (execvp(args[0], args) == -1)
 		{
 			fprintf(stderr, "./hsh: %s: not found\n", args[0]);
-			exit(EXIT_FAILURE);
+			exit(127);
 		}
 		exit(EXIT_SUCCESS);
 	}

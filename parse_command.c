@@ -23,6 +23,7 @@ char **parse_command(char *line)
 		if (!wordsArray[numWords])
 		{
 			free(wordsArray[numWords]);
+			free(wordsArray);
 			fprintf(stderr, "Error happens.");
 			exit(EXIT_FAILURE);
 		}
