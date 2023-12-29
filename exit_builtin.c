@@ -12,7 +12,7 @@ int exit_builtin(char **args)
 	if (args[1] != NULL)
 	{
 		fprintf(stderr, "exit: too many arguments\n");
-		return (1);
+		return (2);
 	}
 
 	status = args[0] ? atoi(args[0]) : EXIT_SUCCESS;
