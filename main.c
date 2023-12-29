@@ -1,6 +1,6 @@
 #include "shell.h"
 /**
- * main - Base functionality of shell.
+ * main - A simple shell.
  *
  * Return: Always 0.
  */
@@ -9,6 +9,9 @@ int main(void)
 	int i;
 	char *line;
 	char **args;
+	builtin_t builtin_table[] = {
+		{"exit", exit_builtin},
+		{NULL, NULL}};
 
 	while (1)
 	{
@@ -23,8 +26,18 @@ int main(void)
 			free(args);
 			continue;
 		}
+
+		for (i = 0; builtin_table[i].name; i++)
+		{
+			if (strcmp(args[0], builtin_table[i].name) == 0)
+			{
+				builtin_table[i].func(args);
+				goto free_args;
+			}
+		}
 		execute_command(args);
 
+free_args:
 		for (i = 0; args[i] != NULL; i++)
 			free(args[i]);
 		free(args);
