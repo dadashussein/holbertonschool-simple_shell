@@ -11,9 +11,8 @@
 #include <errno.h>
 #include <fcntl.h>
 
-
 char *read_command(void);
 char **parse_command(char *line);
-void execute_command(char **args);
+int execute_command(char **args);
 
 #endif

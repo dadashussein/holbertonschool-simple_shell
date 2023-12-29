@@ -9,6 +9,7 @@ int main(void)
 	int i;
 	char *line;
 	char **args;
+	int status;
 
 	while (1)
 	{
@@ -31,12 +32,12 @@ int main(void)
 			break;
 		}
 
-		execute_command(args);
+		status = execute_command(args);
 
 		for (i = 0; args[i] != NULL; i++)
 			free(args[i]);
 		free(args);
 	}
 
-	return (0);
+	return (status);
 }
