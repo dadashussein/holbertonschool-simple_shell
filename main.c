@@ -1,15 +1,14 @@
 #include "shell.h"
 /**
- * main - Base functionality of shell.
+ * main - Entry point.
  *
- * Return: Always 0.
+ * Return: 0 on success, otherwise 1.
  */
 int main(void)
 {
-	int i;
+	int i = 0, status = 0;
 	char *line;
 	char **args;
-	int status;
 
 	while (1)
 	{
@@ -17,27 +16,33 @@ int main(void)
 		if (!line)
 			break;
 
-		args = parse_command(line);
+		args = parse_command(line, " \n\t");
 		free(line);
 		if (!args[0])
 		{
+			for (i = 0; args[i]; i++)
+				free(args[i]);
 			free(args);
 			continue;
 		}
-		if (strcmp(args[0], "exit") == 0)
+		else if (strcmp(args[0], "env") == 0)
 		{
-			for (i = 0; args[i] != NULL; i++)
+			for (i = 0; args[i]; i++)
 				free(args[i]);
 			free(args);
-			break;
+			print_env();
+			continue;
 		}
 
 		status = execute_command(args);
 
-		for (i = 0; args[i] != NULL; i++)
+		for (i = 0; args[i]; i++)
 			free(args[i]);
 		free(args);
 	}
+	free(line);
+	if (status)
+		exit(status);
 
-	return (status);
+	return (0);
 }

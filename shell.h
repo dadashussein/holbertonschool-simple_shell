@@ -11,9 +11,10 @@
 #include <errno.h>
 #include <fcntl.h>
 
+extern char **environ;
 char *read_command(void);
-char **parse_command(char *line);
+char **parse_command(char *line, char *delimiter);
 int execute_command(char **args);
-char *find_command_in_path(char *path, char *command);
+void print_env(void);
 
 #endif

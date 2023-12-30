@@ -1,12 +1,12 @@
 #include "shell.h"
 /**
- * parse_command - Parse a command line into arguments.
+ * parse_command - Parse the command line.
+ * @line: The command line.
+ * @delimiter: The delimiter.
  *
- * @line: A pointer to a string containing the command line.
- *
- * Return: A pointer to a null-terminated array of strings.
+ * Return: The array of words.
  */
-char **parse_command(char *line)
+char **parse_command(char *line, char *delimiter)
 {
 	int numWords = 0;
 	char *token;
@@ -15,7 +15,7 @@ char **parse_command(char *line)
 	if (!wordsArray)
 		return (NULL);
 
-	token = strtok(line, " \n\t");
+	token = strtok(line, delimiter);
 
 	while (token)
 	{
@@ -28,10 +28,10 @@ char **parse_command(char *line)
 			exit(EXIT_FAILURE);
 		}
 		numWords++;
-		token = strtok(NULL, " \n\t");
+		token = strtok(NULL, delimiter);
 	}
 
 	wordsArray[numWords] = NULL;
-
+	free(token);
 	return (wordsArray);
 }
