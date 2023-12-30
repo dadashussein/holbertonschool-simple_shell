@@ -7,8 +7,8 @@
 int main(void)
 {
 	int i = 0, status = 0;
-	char *line;
-	char **args;
+	char *line = NULL;
+	char **args = NULL;
 
 	while (1)
 	{
@@ -24,6 +24,13 @@ int main(void)
 				free(args[i]);
 			free(args);
 			continue;
+		}
+		else if (strcmp(args[0], "exit") == 0 && args[1] == NULL)
+		{
+			for (i = 0; args[i]; i++)
+				free(args[i]);
+			free(args);
+			exit(status);
 		}
 		else if (strcmp(args[0], "env") == 0)
 		{
