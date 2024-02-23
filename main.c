@@ -35,10 +35,10 @@ int main(void)
 		else if (strcmp(args[0], "env") == 0)
 		{
 			for (i = 0; args[i]; i++)
-				free(args[i]);
-			free(args);
-			print_env();
-			continue;
+					free(args[i]);
+				free(args);
+				print_env();
+				continue;
 		}
 
 		status = execute_command(args);

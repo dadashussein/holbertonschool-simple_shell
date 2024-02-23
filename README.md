@@ -1,26 +1,52 @@
+# Simple Shell
 
-#  Simple Shell
+A simple UNIX command line shell program written in C. 
 
-This project involves the development of a shell program using the C programming language at Holberton School. The primary goal of this project is to gain a deeper understanding of the Linux operating system, learn about system calls, practice memory management in C, and generally comprehend how a shell operates.
+## Description
 
-## About the Project
+This shell program implements basic functionality of a UNIX command line shell including:
 
-- **Language:** C Programming
-- **Platform:** Linux
+- Reading commands from stdin
+- Parsing commands into arguments 
+- Executing commands by calling execve()
+- Handling I/O redirection using pipes 
+- Implementing basic built-in commands like cd, exit
+- Proper error handling for system calls
+
+The goal of the project was to learn the fundamentals of how a shell program works under the hood by creating a basic but working shell from scratch.
 
 ## Features
 
-###  System Calls
-- Understand and utilize system calls within the Linux operating system.
-- Includes information on fundamental system calls such as process creation, file management, and memory management.
+- Support for executing external commands by path lookup using the PATH environment variable
+- Argument parsing using strtok() to break the command line into individual arguments
+- Support for piping between commands using fork() and dup2()
+- Implemented built-in commands cd and exit
+- Signal handling for Ctrl-C with SIGINT
+- Proper error checking and return codes for system calls
 
-###  Shell Functions
+## Usage
 
-- Implement basic shell functions to take user commands and process them.
-- Track and terminate running processes.
+To build and run the shell:
 
-## Contributors
+```
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+```
 
-Contributors to this project:
-- Dadash Huseynzade
-- Aytac Huseynli 
+Example usages:
+
+```
+ls -l 
+pwd
+exit
+```
+
+
+This was a fun learning project to understand the internals of how a simple shell works. Please feel free to check it out and provide any feedback!
+
+## Links
+
+Project Repo: https://github.com/dadashussein/holbertonschool-simple_shell
+
+LinkedIn Profile: hhttps://www.linkedin.com/in/dadashussein/
+
+Let me know if you have any other questions!
